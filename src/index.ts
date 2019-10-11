@@ -27,7 +27,7 @@ const invocationConfig: IntegrationInvocationConfig = {
     {
       steps: [
         {
-          name: "Fetch Users",
+          name: "Fetch Users from Provider",
           iterates: true,
           executionHandler: async (
             executionContext: IntegrationStepExecutionContext,
@@ -49,7 +49,7 @@ const invocationConfig: IntegrationInvocationConfig = {
     {
       steps: [
         {
-          name: "Users",
+          name: "Process Users",
           executionHandler: async (
             executionContext: IntegrationStepExecutionContext,
           ) => {
