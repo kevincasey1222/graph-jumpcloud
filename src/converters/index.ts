@@ -3,10 +3,9 @@ import {
   RelationshipFromIntegration,
 } from "@jupiterone/jupiter-managed-integration-sdk";
 
+export * from "./constants";
 export * from "./account";
 export * from "./user";
-
-export const consoleBaseUrl = "https://console.jumpcloud.com";
 
 export function createHasRelationships(
   fromEntity: EntityFromIntegration,

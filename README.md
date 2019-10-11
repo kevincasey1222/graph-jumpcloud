@@ -1,7 +1,6 @@
 # Graph conversion tool for JumpCloud
 
 [![Build Status](https://travis-ci.org/JupiterOne/graph-jumpcloud.svg?branch=master)](https://travis-ci.org/JupterOne/graph-jumpcloud)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=JupiterOne/graph-jumpcloud)](https://dependabot.com)
 
 A JupiterOne integration ingests information such as configurations and other
 metadata about digital and physical assets belonging to an organization. The

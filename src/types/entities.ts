@@ -30,13 +30,13 @@ export interface UserEntity extends EntityFromIntegration {
 }
 
 export interface JumpCloudUserEntity extends UserEntity {
-  employeeType?: string;
-  employeeId?: string;
-  company?: string;
-  department?: string;
-  jobTitle?: string;
-  suspended?: boolean;
-  mfaExclusion?: boolean;
-  mfaExclusionUntil?: number;
-  mfaConfigured?: boolean;
+  employeeType: string | undefined;
+  employeeId: string | undefined;
+  company: string | undefined;
+  department: string | undefined;
+  jobTitle: string | undefined;
+  suspended: boolean | undefined;
+  mfaExclusion: boolean | undefined;
+  mfaExclusionUntil: number | undefined;
+  mfaConfigured: boolean | undefined;
 }
