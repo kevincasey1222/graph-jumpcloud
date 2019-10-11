@@ -1,11 +1,11 @@
 import {
+  IntegrationInstanceAuthenticationError,
   IntegrationInstanceConfigError,
   IntegrationValidationContext,
 } from "@jupiterone/jupiter-managed-integration-sdk";
 
+import JumpCloudClient from "./provider/JumpCloudClient";
 import { JumpCloudIntegrationConfig } from "./types";
-
-// import createOktaClient from "./okta/createOktaClient";
 
 /**
  * Performs validation of the execution before the execution handler function is
@@ -25,6 +25,7 @@ import { JumpCloudIntegrationConfig } from "./types";
 export default async function invocationValidator(
   context: IntegrationValidationContext,
 ) {
+  const { logger } = context;
   const { accountId, config } = context.instance;
   const jumpcloudInstanceConfig = config as JumpCloudIntegrationConfig;
 
@@ -40,5 +41,12 @@ export default async function invocationValidator(
     throw new IntegrationInstanceConfigError(
       `Missing apiKey in configuration (accountId=${accountId})`,
     );
+  }
+
+  const client = new JumpCloudClient(config, logger);
+  try {
+    await client.listOrgs();
+  } catch (err) {
+    throw new IntegrationInstanceAuthenticationError(err);
   }
 }
