@@ -7,6 +7,7 @@ import {
 import initializeContext from "./initializeContext";
 import invocationValidator from "./invocationValidator";
 import fetchBatchOfUsers from "./provider/fetchBatchOfUsers";
+import synchronizeGroups from "./synchronizers/synchronizeGroups";
 import synchronizeUsers from "./synchronizers/synchronizeUsers";
 
 const invocationConfig: IntegrationInvocationConfig = {
@@ -54,6 +55,18 @@ const invocationConfig: IntegrationInvocationConfig = {
             executionContext: IntegrationStepExecutionContext,
           ) => {
             return synchronizeUsers(await initializeContext(executionContext));
+          },
+        },
+      ],
+    },
+    {
+      steps: [
+        {
+          name: "Process Groups",
+          executionHandler: async (
+            executionContext: IntegrationStepExecutionContext,
+          ) => {
+            return synchronizeGroups(await initializeContext(executionContext));
           },
         },
       ],

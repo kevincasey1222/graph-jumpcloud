@@ -23,14 +23,16 @@ The following entity resources are ingested when the integration runs:
 | ------------------------- | ---------------------------------------------- |
 | Account/Organization      | `jumpcloud_account` : `Account`,`Organization` |
 | User                      | `jumpcloud_user` : `User`                      |
+| User Group                | `jumpcloud_user_group` : `UserGroup`           |
 
 ## Relationships
 
 The following relationships are created/mapped:
 
-|                                              |
-| -------------------------------------------- |
-| `jumpcloud_account` **HAS** `jumpcloud_user` |
+|                                                 |
+| ----------------------------------------------- |
+| `jumpcloud_account` **HAS** `jumpcloud_user`    |
+| `jumpcloud_user_group` **HAS** `jumpcloud_user` |
 
 ## Tips
 

@@ -1,4 +1,6 @@
 export * from "./users";
+export * from "./groups";
+export * from "./applications";
 
 export interface JumpCloudObject {
   _id?: string | null;
