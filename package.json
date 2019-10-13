@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-jumpcloud",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Graph conversion tool for https://www.jumpcloud.com",
   "main": "dist/index.js",
   "repository": "https://github.com/jupiterone/graph-jumpcloud",
