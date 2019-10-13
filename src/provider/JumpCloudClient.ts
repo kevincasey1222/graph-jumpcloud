@@ -9,7 +9,13 @@ import {
 import { AttemptContext, retry } from "@lifeomic/attempt";
 
 import { JumpCloudIntegrationConfig } from "../types";
-import { JumpCloudOrg, JumpCloudUser } from "./types";
+import {
+  JumpCloudApplication,
+  JumpCloudGroup,
+  JumpCloudGroupMember,
+  JumpCloudOrg,
+  JumpCloudUser,
+} from "./types";
 
 interface QueryParams {
   limit?: string;
@@ -22,6 +28,10 @@ interface QueryParams {
 
 interface ApiResponse {
   totalCount?: number;
+}
+
+interface ListAppsResponse extends ApiResponse {
+  results?: JumpCloudApplication[];
 }
 
 interface ListOrgsResponse extends ApiResponse {
@@ -57,6 +67,14 @@ export default class JumpCloudClient {
     });
   }
 
+  public async listApps(params?: QueryParams): Promise<ListAppsResponse> {
+    return this.makeRequest<ListOrgsResponse>(
+      `${this.BASE_API_URL}/applications`,
+      { totalCount: 0, results: [] },
+      params,
+    );
+  }
+
   public async listOrgs(params?: QueryParams): Promise<ListOrgsResponse> {
     return this.makeRequest<ListOrgsResponse>(
       `${this.BASE_API_URL}/organizations`,
@@ -73,7 +91,36 @@ export default class JumpCloudClient {
     );
   }
 
-  private async makeRequest<T extends ApiResponse>(
+  public async listUserGroups(params?: QueryParams): Promise<JumpCloudGroup[]> {
+    return this.makeRequest<JumpCloudGroup[]>(
+      `${this.BASE_API_URL}/v2/usergroups`,
+      [],
+      params,
+    );
+  }
+
+  public async listUserGroupMembers(
+    groupId: string,
+    params?: QueryParams,
+  ): Promise<JumpCloudGroupMember[]> {
+    return this.makeRequest<JumpCloudGroupMember[]>(
+      `${this.BASE_API_URL}/v2/usergroups/${groupId}/members`,
+      [],
+      params,
+    );
+  }
+
+  public async listSystemGroups(
+    params?: QueryParams,
+  ): Promise<JumpCloudGroup[]> {
+    return this.makeRequest<JumpCloudGroup[]>(
+      `${this.BASE_API_URL}/v2/systemgroups`,
+      [],
+      params,
+    );
+  }
+
+  private async makeRequest<T>(
     resourceUrl: string,
     emptyResponse: T,
     params?: QueryParams,

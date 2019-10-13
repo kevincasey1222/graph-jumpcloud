@@ -1,24 +1,22 @@
-import {
-  EntityFromIntegration,
-  RelationshipFromIntegration,
-} from "@jupiterone/jupiter-managed-integration-sdk";
+import { RelationshipFromIntegration } from "@jupiterone/jupiter-managed-integration-sdk";
 
 export * from "./constants";
 export * from "./account";
 export * from "./user";
+export * from "./group";
 
 export function createHasRelationships(
-  fromEntity: EntityFromIntegration,
-  toEntities: EntityFromIntegration[],
+  fromEntityKey: string,
+  toEntityKeys: string[],
   relationshipType: string,
   relationshipProperties?: any,
 ) {
   const relationships: RelationshipFromIntegration[] = [];
-  for (const e of toEntities) {
+  for (const toEntityKey of toEntityKeys) {
     relationships.push(
       createHasRelationship(
-        fromEntity,
-        e,
+        fromEntityKey,
+        toEntityKey,
         relationshipType,
         relationshipProperties,
       ),
@@ -28,17 +26,17 @@ export function createHasRelationships(
 }
 
 export function createHasRelationship(
-  fromEntity: EntityFromIntegration,
-  toEntity: EntityFromIntegration,
+  fromEntityKey: string,
+  toEntityKey: string,
   relationshipType: string,
   relationshipProperties?: any,
 ) {
   const relationship: RelationshipFromIntegration = {
-    _key: `${fromEntity._key}|has|${toEntity._key}`,
+    _key: `${fromEntityKey}|has|${toEntityKey}`,
     _type: relationshipType,
     _class: "HAS",
-    _fromEntityKey: fromEntity._key,
-    _toEntityKey: toEntity._key,
+    _fromEntityKey: fromEntityKey,
+    _toEntityKey: toEntityKey,
     displayName: "HAS",
     ...relationshipProperties,
   };
