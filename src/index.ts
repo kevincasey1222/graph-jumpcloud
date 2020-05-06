@@ -28,6 +28,7 @@ const invocationConfig: IntegrationInvocationConfig = {
     {
       steps: [
         {
+          id: "fetch-users",
           name: "Fetch Users from Provider",
           iterates: true,
           executionHandler: async (
@@ -50,6 +51,7 @@ const invocationConfig: IntegrationInvocationConfig = {
     {
       steps: [
         {
+          id: "sync-users",
           name: "Process Users",
           executionHandler: async (
             executionContext: IntegrationStepExecutionContext,
@@ -62,6 +64,7 @@ const invocationConfig: IntegrationInvocationConfig = {
     {
       steps: [
         {
+          id: "sync-groups",
           name: "Process Groups",
           executionHandler: async (
             executionContext: IntegrationStepExecutionContext,

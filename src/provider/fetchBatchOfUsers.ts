@@ -1,7 +1,4 @@
-import {
-  IntegrationStepExecutionResult,
-  IntegrationStepIterationState,
-} from "@jupiterone/jupiter-managed-integration-sdk";
+import { IntegrationStepIterationState } from "@jupiterone/jupiter-managed-integration-sdk";
 
 import { JumpCloudExecutionContext } from "../types";
 import { appendFetchSuccess } from "../util/fetchSuccess";
@@ -23,7 +20,7 @@ const BATCH_PAGES = process.env.JC_USERS_BATCH_PAGES
 export default async function fetchBatchOfUsers(
   executionContext: JumpCloudExecutionContext,
   iterationState: IntegrationStepIterationState,
-): Promise<IntegrationStepExecutionResult> {
+): Promise<IntegrationStepIterationState> {
   const limit = 100;
   const cache = executionContext.clients.getCache();
   const userCache = createUserCache(cache);
@@ -77,13 +74,11 @@ export default async function fetchBatchOfUsers(
   }
 
   return {
-    iterationState: {
-      ...iterationState,
-      finished,
-      state: {
-        limit,
-        count: cachedIds.length,
-      },
+    ...iterationState,
+    finished,
+    state: {
+      limit,
+      count: cachedIds.length,
     },
   };
 }
