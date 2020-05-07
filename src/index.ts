@@ -10,7 +10,7 @@ import fetchBatchOfUsers from "./provider/fetchBatchOfUsers";
 import synchronizeGroups from "./synchronizers/synchronizeGroups";
 import synchronizeUsers from "./synchronizers/synchronizeUsers";
 
-const invocationConfig: IntegrationInvocationConfig = {
+export const invocationConfig: IntegrationInvocationConfig = {
   instanceConfigFields: {
     orgId: {
       type: "string",
@@ -76,5 +76,3 @@ const invocationConfig: IntegrationInvocationConfig = {
     },
   ],
 };
-
-export default invocationConfig;

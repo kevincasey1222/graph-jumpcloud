@@ -1,6 +1,6 @@
 /* tslint:disable:no-console */
 import { executeIntegrationLocal } from "@jupiterone/jupiter-managed-integration-sdk";
-import invocationConfig from "../src/index";
+import { invocationConfig } from "../src/index";
 
 const integrationConfig = {
   apiKey: process.env.LOCAL_EXECUTION_API_KEY,
@@ -16,5 +16,7 @@ executeIntegrationLocal(
   invocationArgs,
 ).catch(err => {
   console.error(err);
-  process.exit(1);
+  process.stdout.end(() => {
+    process.exit(1);
+  });
 });
