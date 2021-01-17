@@ -28,8 +28,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@jupiterone/jupiter-managed-integration-sdk": "33.7.5",
+    "@jupiterone/jupiter-managed-integration-sdk": "^36.0.0",
     "@lifeomic/attempt": "^3.0.0",
+    "aws-sdk": "^2.828.0",
     "lodash.startcase": "^4.4.0",
     "node-fetch": "^2.6.0",
     "p-queue": "^6.0.2",

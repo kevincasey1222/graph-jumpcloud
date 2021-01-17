@@ -81,13 +81,19 @@ export default async function synchronizeUsers(
     return {
       operations: await persister.publishPersisterOperations([
         [
-          ...persister.processEntities(oldAccounts, newAccounts),
-          ...persister.processEntities(oldUsers, newUsers),
+          ...persister.processEntities({
+            oldEntities: oldAccounts,
+            newEntities: newAccounts,
+          }),
+          ...persister.processEntities({
+            oldEntities: oldUsers,
+            newEntities: newUsers,
+          }),
         ],
-        persister.processRelationships(
-          oldAccountUserRelationships,
-          newAccountUserRelationships,
-        ),
+        persister.processRelationships({
+          oldRelationships: oldAccountUserRelationships,
+          newRelationships: newAccountUserRelationships,
+        }),
       ]),
     };
   } else {

@@ -67,11 +67,16 @@ export default async function synchronizeGroups(
 
     return {
       operations: await persister.publishPersisterOperations([
-        [...persister.processEntities(oldUserGroups, newUserGroups)],
-        persister.processRelationships(
-          oldGroupUserRelationships,
-          newGroupUserRelationships,
-        ),
+        [
+          ...persister.processEntities({
+            oldEntities: oldUserGroups,
+            newEntities: newUserGroups,
+          }),
+        ],
+        persister.processRelationships({
+          oldRelationships: oldGroupUserRelationships,
+          newRelationships: newGroupUserRelationships,
+        }),
       ]),
     };
   }
