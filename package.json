@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-jumpcloud",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Graph conversion tool for https://www.jumpcloud.com",
   "main": "dist/index.js",
   "repository": "https://github.com/jupiterone/graph-jumpcloud",
@@ -25,6 +25,7 @@
     "lint:md": "remark .",
     "lint:ts": "tslint --project .",
     "format": "yarn prettier --write '**/*.{ts,js,json,md}'",
+    "prepack": "yarn build",
     "test": "jest"
   },
   "dependencies": {
