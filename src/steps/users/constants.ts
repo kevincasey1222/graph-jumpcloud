@@ -1,10 +1,11 @@
-import { RelationshipClass, StepEntityMetadata, StepRelationshipMetadata } from "@jupiterone/integration-sdk-core";
-import { OrgEntities } from "../orgs/constants";
+import {
+  RelationshipClass,
+  StepEntityMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
+import { OrgEntities } from '../orgs/constants';
 
-export const UserEntities: Record<
-  'USER',
-  StepEntityMetadata
-> = {
+export const UserEntities: Record<'USER', StepEntityMetadata> = {
   USER: {
     _type: 'jumpcloud_user',
     _class: ['User'],

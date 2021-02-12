@@ -1,11 +1,12 @@
-import { RelationshipClass, StepEntityMetadata, StepRelationshipMetadata } from "@jupiterone/integration-sdk-core";
-import { OrgEntities } from "../orgs/constants";
-import { UserEntities } from "../users/constants";
+import {
+  RelationshipClass,
+  StepEntityMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
+import { OrgEntities } from '../orgs/constants';
+import { UserEntities } from '../users/constants';
 
-export const GroupEntities: Record<
-  'GROUP',
-  StepEntityMetadata
-> = {
+export const GroupEntities: Record<'GROUP', StepEntityMetadata> = {
   GROUP: {
     _type: 'jumpcloud_group',
     _class: ['Group'],
@@ -14,8 +15,7 @@ export const GroupEntities: Record<
 };
 
 export const GroupRelationships: Record<
-  'ORG_HAS_GROUP' |
-  'GROUP_HAS_USER',
+  'ORG_HAS_GROUP' | 'GROUP_HAS_USER',
   StepRelationshipMetadata
 > = {
   ORG_HAS_GROUP: {

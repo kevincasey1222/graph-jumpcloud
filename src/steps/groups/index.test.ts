@@ -12,7 +12,7 @@ describe('#fetchGroups', () => {
   test('should collect data', async () => {
     await withRecording('fetchGroups', __dirname, async () => {
       const context = createMockStepExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig
+        instanceConfig: integrationConfig,
       });
 
       await fetchOrgs(context);
@@ -20,7 +20,8 @@ describe('#fetchGroups', () => {
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
-        numCollectedRelationships: context.jobState.collectedRelationships.length,
+        numCollectedRelationships:
+          context.jobState.collectedRelationships.length,
         collectedEntities: context.jobState.collectedEntities,
         collectedRelationships: context.jobState.collectedRelationships,
         encounteredTypes: context.jobState.encounteredTypes,
@@ -47,8 +48,8 @@ describe('#fetchGroups', () => {
 
       expect(
         context.jobState.collectedRelationships.filter(
-          (r) => r._type === GroupRelationships.ORG_HAS_GROUP._type
-        )
+          (r) => r._type === GroupRelationships.ORG_HAS_GROUP._type,
+        ),
       ).toMatchDirectRelationshipSchema({
         schema: {
           properties: {
@@ -65,7 +66,7 @@ describe('#fetchGroupMembers', () => {
   test('should collect data', async () => {
     await withRecording('fetchGroups', __dirname, async () => {
       const context = createMockStepExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig
+        instanceConfig: integrationConfig,
       });
 
       await fetchOrgs(context);
@@ -74,7 +75,8 @@ describe('#fetchGroupMembers', () => {
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
-        numCollectedRelationships: context.jobState.collectedRelationships.length,
+        numCollectedRelationships:
+          context.jobState.collectedRelationships.length,
         collectedEntities: context.jobState.collectedEntities,
         collectedRelationships: context.jobState.collectedRelationships,
         encounteredTypes: context.jobState.encounteredTypes,
@@ -82,8 +84,8 @@ describe('#fetchGroupMembers', () => {
 
       expect(
         context.jobState.collectedRelationships.filter(
-          (r) => r._type === GroupRelationships.GROUP_HAS_USER._type
-        )
+          (r) => r._type === GroupRelationships.GROUP_HAS_USER._type,
+        ),
       ).toMatchDirectRelationshipSchema({
         schema: {
           properties: {

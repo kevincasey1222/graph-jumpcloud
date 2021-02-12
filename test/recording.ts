@@ -1,7 +1,7 @@
 import {
   setupRecording,
   SetupRecordingInput,
-  mutations
+  mutations,
 } from '@jupiterone/integration-sdk-testing';
 
 export { Recording } from '@jupiterone/integration-sdk-testing';
@@ -17,7 +17,7 @@ export async function withRecording(
     name: recordingName,
     redactedRequestHeaders: ['x-api-key'],
     mutateEntry(entry) {
-      mutations.unzipGzippedRecordingEntry(entry)
+      mutations.unzipGzippedRecordingEntry(entry);
     },
     options: {
       recordFailedRequests: false,

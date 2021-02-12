@@ -11,7 +11,7 @@ describe('#fetchUsers', () => {
   test('should collect data', async () => {
     await withRecording('fetchUsers', __dirname, async () => {
       const context = createMockStepExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig
+        instanceConfig: integrationConfig,
       });
 
       await fetchOrgs(context);
@@ -19,7 +19,8 @@ describe('#fetchUsers', () => {
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
-        numCollectedRelationships: context.jobState.collectedRelationships.length,
+        numCollectedRelationships:
+          context.jobState.collectedRelationships.length,
         collectedEntities: context.jobState.collectedEntities,
         collectedRelationships: context.jobState.collectedRelationships,
         encounteredTypes: context.jobState.encounteredTypes,
@@ -63,8 +64,8 @@ describe('#fetchUsers', () => {
 
       expect(
         context.jobState.collectedRelationships.filter(
-          (r) => r._type === UserRelationships.ORG_HAS_USER._type
-        )
+          (r) => r._type === UserRelationships.ORG_HAS_USER._type,
+        ),
       ).toMatchDirectRelationshipSchema({
         schema: {
           properties: {

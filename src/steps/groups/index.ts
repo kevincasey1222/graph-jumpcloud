@@ -7,27 +7,25 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { JumpCloudClient } from '../../jumpcloud/client';
 import { IntegrationConfig } from '../../config';
-import { GroupEntities, GroupRelationships} from './constants';
+import { GroupEntities, GroupRelationships } from './constants';
 import { createGroupEntity } from './converters';
 import { PRIORITY_ORG_CACHE_KEY } from '../orgs/constants';
 
 export async function fetchGroups({
   instance,
   jobState,
-  logger
+  logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const client = new JumpCloudClient({
     logger,
     apiKey: instance.config.apiKey,
-    orgId: instance.config.orgId
+    orgId: instance.config.orgId,
   });
 
   const orgEntity = await jobState.getData<Entity>(PRIORITY_ORG_CACHE_KEY);
 
   await client.iterateGroups(async (group) => {
-    const groupEntity = await jobState.addEntity(
-      createGroupEntity(group)
-    );
+    const groupEntity = await jobState.addEntity(createGroupEntity(group));
 
     await jobState.addRelationship(
       createDirectRelationship({
@@ -42,22 +40,22 @@ export async function fetchGroups({
 export async function fetchGroupMembers({
   instance,
   jobState,
-  logger
+  logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const client = new JumpCloudClient({
     logger,
     apiKey: instance.config.apiKey,
-    orgId: instance.config.orgId
+    orgId: instance.config.orgId,
   });
 
-  await jobState.iterateEntities({
-    _type: GroupEntities.GROUP._type
-  }, async (groupEntity) => {
-    const groupId = groupEntity.id as string;
+  await jobState.iterateEntities(
+    {
+      _type: GroupEntities.GROUP._type,
+    },
+    async (groupEntity) => {
+      const groupId = groupEntity.id as string;
 
-    await client.iterateGroupMembers(
-      groupId,
-      async (member) => {
+      await client.iterateGroupMembers(groupId, async (member) => {
         const memberUserId = member.to?.id;
 
         if (!memberUserId) {
@@ -70,7 +68,7 @@ export async function fetchGroupMembers({
           // It's possible that this user was created in between the time that
           // we collected all users and now. We should just ignore this one and
           // carry on!
-          return
+          return;
         }
 
         await jobState.addRelationship(
@@ -80,9 +78,9 @@ export async function fetchGroupMembers({
             to: userEntity,
           }),
         );
-      }
-    );
-  });
+      });
+    },
+  );
 }
 
 export const groupSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -90,9 +88,7 @@ export const groupSteps: IntegrationStep<IntegrationConfig>[] = [
     id: 'fetch-groups',
     name: 'Fetch Groups',
     entities: [GroupEntities.GROUP],
-    relationships: [
-      GroupRelationships.ORG_HAS_GROUP,
-    ],
+    relationships: [GroupRelationships.ORG_HAS_GROUP],
     dependsOn: ['fetch-orgs'],
     executionHandler: fetchGroups,
   },
@@ -100,9 +96,7 @@ export const groupSteps: IntegrationStep<IntegrationConfig>[] = [
     id: 'fetch-group-members',
     name: 'Fetch Group Members',
     entities: [],
-    relationships: [
-      GroupRelationships.GROUP_HAS_USER,
-    ],
+    relationships: [GroupRelationships.GROUP_HAS_USER],
     dependsOn: ['fetch-groups'],
     executionHandler: fetchGroupMembers,
   },

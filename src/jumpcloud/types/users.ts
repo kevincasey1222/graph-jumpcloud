@@ -1,4 +1,4 @@
-import { JumpCloudObject } from ".";
+import { JumpCloudObject } from '.';
 
 export interface JumpCloudUser extends JumpCloudObject {
   email?: string | null;

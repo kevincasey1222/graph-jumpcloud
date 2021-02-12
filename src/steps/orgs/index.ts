@@ -12,12 +12,12 @@ import { PRIORITY_ORG_CACHE_KEY } from './constants';
 export async function fetchOrgs({
   instance,
   jobState,
-  logger
+  logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const client = new JumpCloudClient({
     logger,
     apiKey: instance.config.apiKey,
-    orgId: instance.config.orgId
+    orgId: instance.config.orgId,
   });
 
   const response = await client.listOrgs();

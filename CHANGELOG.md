@@ -8,7 +8,6 @@ and this project adheres to
 
 ## [Unreleased]
 
-
 ### Added
 
 - `jumpcloud_account` **HAS** `jumpcloud_group` relationship

@@ -1,5 +1,5 @@
-import { createMockOrg } from "../../../test/mocks";
-import { createOrgEntity } from "./converters";
+import { createMockOrg } from '../../../test/mocks';
+import { createOrgEntity } from './converters';
 
 describe('#createUserEntity', () => {
   test('should convert data', () => {

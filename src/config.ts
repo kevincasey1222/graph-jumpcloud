@@ -1,13 +1,16 @@
-import { IntegrationInstanceConfig, IntegrationInstanceConfigFieldMap } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationInstanceConfig,
+  IntegrationInstanceConfigFieldMap,
+} from '@jupiterone/integration-sdk-core';
 
 export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
   apiKey: {
     type: 'string',
-    mask: true
+    mask: true,
   },
   orgId: {
     type: 'string',
-    mask: false
+    mask: false,
   },
 };
 

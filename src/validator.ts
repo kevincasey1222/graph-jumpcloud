@@ -13,15 +13,13 @@ export async function validateInvocation(
   const { config } = instance;
 
   if (!config.apiKey) {
-    throw new IntegrationValidationError(
-      'Config requires all of {apiKey}',
-    );
+    throw new IntegrationValidationError('Config requires all of {apiKey}');
   }
 
   const client = new JumpCloudClient({
     logger,
     apiKey: config.apiKey,
-    orgId: config.orgId
+    orgId: config.orgId,
   });
 
   try {

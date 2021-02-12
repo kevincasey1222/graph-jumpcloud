@@ -1,9 +1,6 @@
-import { StepEntityMetadata } from "@jupiterone/integration-sdk-core";
+import { StepEntityMetadata } from '@jupiterone/integration-sdk-core';
 
-export const OrgEntities: Record<
-  'ORG',
-  StepEntityMetadata
-> = {
+export const OrgEntities: Record<'ORG', StepEntityMetadata> = {
   ORG: {
     _type: 'jumpcloud_account',
     _class: ['Account', 'Organization'],

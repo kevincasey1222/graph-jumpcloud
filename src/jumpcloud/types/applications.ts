@@ -1,4 +1,4 @@
-import { JumpCloudObject } from ".";
+import { JumpCloudObject } from '.';
 
 export interface JumpCloudApplication extends JumpCloudObject {
   active?: boolean | null;

@@ -1,11 +1,12 @@
-import { createIntegrationEntity, parseTimePropertyValue } from "@jupiterone/integration-sdk-core";
-import { JumpCloudUser } from "../../jumpcloud/types";
-import { getConsoleUrl } from "../../jumpcloud/url";
-import { UserEntities } from "./constants";
+import {
+  createIntegrationEntity,
+  parseTimePropertyValue,
+} from '@jupiterone/integration-sdk-core';
+import { JumpCloudUser } from '../../jumpcloud/types';
+import { getConsoleUrl } from '../../jumpcloud/url';
+import { UserEntities } from './constants';
 
-export function createUserEntity(
-  data: JumpCloudUser
-) {
+export function createUserEntity(data: JumpCloudUser) {
   const userId = data.id || (data._id as string);
 
   return createIntegrationEntity({
@@ -43,8 +44,8 @@ export function createUserEntity(
         ldapBindingUser: !!data.ldap_binding_user,
         sambaServiceUser: !!data.samba_service_user,
         sudo: !!data.sudo,
-        webLink: getConsoleUrl(`/#/users/${userId}/details`)
-      }
-    }
+        webLink: getConsoleUrl(`/#/users/${userId}/details`),
+      },
+    },
   });
 }

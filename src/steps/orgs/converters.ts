@@ -1,11 +1,12 @@
-import { createIntegrationEntity, parseTimePropertyValue } from "@jupiterone/integration-sdk-core";
-import { JumpCloudOrg } from "../../jumpcloud/types";
-import { consoleBaseUrl } from "../../jumpcloud/url";
-import { OrgEntities } from "./constants";
+import {
+  createIntegrationEntity,
+  parseTimePropertyValue,
+} from '@jupiterone/integration-sdk-core';
+import { JumpCloudOrg } from '../../jumpcloud/types';
+import { consoleBaseUrl } from '../../jumpcloud/url';
+import { OrgEntities } from './constants';
 
-export function createOrgEntity(
-  data: JumpCloudOrg
-) {
+export function createOrgEntity(data: JumpCloudOrg) {
   const orgId = data.id || (data._id as string);
 
   return createIntegrationEntity({
@@ -21,7 +22,7 @@ export function createOrgEntity(
         logoUrl: data.logoUrl || undefined,
         createdOn: parseTimePropertyValue(data.created),
         webLink: consoleBaseUrl,
-      }
-    }
+      },
+    },
   });
 }

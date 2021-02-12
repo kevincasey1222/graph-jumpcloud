@@ -8,9 +8,5 @@ import { validateInvocation } from './validator';
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> = {
   instanceConfigFields,
   validateInvocation,
-  integrationSteps: [
-    ...orgSteps,
-    ...userSteps,
-    ...groupSteps
-  ],
+  integrationSteps: [...orgSteps, ...userSteps, ...groupSteps],
 };

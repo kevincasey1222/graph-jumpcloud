@@ -1,14 +1,18 @@
-import fetch, { Response } from "node-fetch";
-import { URL } from "url";
-import { AttemptContext, retry } from "@lifeomic/attempt";
+import fetch, { Response } from 'node-fetch';
+import { URL } from 'url';
+import { AttemptContext, retry } from '@lifeomic/attempt';
 import {
   JumpCloudApplication,
   JumpCloudGroup,
   JumpCloudGroupMember,
   JumpCloudOrg,
   JumpCloudUser,
-} from "./types";
-import { IntegrationError, IntegrationLogger, IntegrationProviderAPIError } from "@jupiterone/integration-sdk-core";
+} from './types';
+import {
+  IntegrationError,
+  IntegrationLogger,
+  IntegrationProviderAPIError,
+} from '@jupiterone/integration-sdk-core';
 
 interface QueryParams {
   limit?: string;
@@ -46,16 +50,12 @@ export class JumpCloudClient {
   private logger: IntegrationLogger;
   private credentials: any;
 
-  constructor({
-    logger,
-    apiKey,
-    orgId
-  }: CreateJumpCloudClientParams) {
+  constructor({ logger, apiKey, orgId }: CreateJumpCloudClientParams) {
     this.logger = logger;
 
     this.credentials = {
-      "x-org-id": orgId || "",
-      "x-api-key": apiKey,
+      'x-org-id': orgId || '',
+      'x-api-key': apiKey,
     };
   }
 
@@ -83,9 +83,7 @@ export class JumpCloudClient {
     );
   }
 
-  async iterateUsers(
-    callback: (user: JumpCloudUser) => Promise<void>
-  ) {
+  async iterateUsers(callback: (user: JumpCloudUser) => Promise<void>) {
     let numResultsLastPage = 0;
 
     const limit = 100;
@@ -106,9 +104,7 @@ export class JumpCloudClient {
     } while (numResultsLastPage > 0);
   }
 
-  async iterateGroups(
-    callback: (user: JumpCloudGroup) => Promise<void>
-  ) {
+  async iterateGroups(callback: (user: JumpCloudGroup) => Promise<void>) {
     let numResultsLastPage = 0;
 
     const limit = 100;
@@ -131,7 +127,7 @@ export class JumpCloudClient {
 
   async iterateGroupMembers(
     groupId: string,
-    callback: (user: JumpCloudGroupMember) => Promise<void>
+    callback: (user: JumpCloudGroupMember) => Promise<void>,
   ) {
     let numResultsLastPage = 0;
 
@@ -202,7 +198,7 @@ export class JumpCloudClient {
           response = await fetch(url, {
             headers: {
               ...this.credentials,
-              contentType: "application/json",
+              contentType: 'application/json',
             },
           });
         } catch (err) {
@@ -215,12 +211,12 @@ export class JumpCloudClient {
 
         if (response.status === 200) {
           const json = await response.json();
-          this.logger.trace({ url }, "Fetch completed");
+          this.logger.trace({ url }, 'Fetch completed');
           return (json as unknown) as T;
         } else if (response.status === 404) {
           this.logger.info(
             { url },
-            "Received 404, answering an empty collection",
+            'Received 404, answering an empty collection',
           );
           return emptyResponse;
         } else {
@@ -236,7 +232,7 @@ export class JumpCloudClient {
         factor: 1.2,
         maxAttempts: 15,
         handleError(err: Error, context: AttemptContext) {
-          const { status: statusCode } = (err as IntegrationProviderAPIError);
+          const { status: statusCode } = err as IntegrationProviderAPIError;
 
           if (statusCode !== 429 && statusCode !== 500) {
             context.abort();
