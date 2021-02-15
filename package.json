@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-jumpcloud",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "A JupiterOne Integration for https://jumpcloud.com",
   "repository": "https://github.com/jupiterone/graph-jumpcloud",
   "license": "MPL-2.0",
