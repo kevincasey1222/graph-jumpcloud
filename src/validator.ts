@@ -25,11 +25,9 @@ export async function validateInvocation(
     const response = await client.listOrgs();
 
     if (!response.results || !response.results.length) {
-      throw new IntegrationError({
-        message: 'Failed to list JumpCloud organizations',
-        code: 'ORG_LIST_FAILED',
-        fatal: true,
-      });
+      throw new IntegrationValidationError(
+        'Failed to list JumpCloud organizations',
+      );
     }
   } catch (err) {
     if (!(err instanceof IntegrationError)) {
