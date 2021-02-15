@@ -46,9 +46,11 @@ https://github.com/JupiterOne/sdk/blob/master/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources | Entity `_type` | Entity `_class` |
-| --------- | -------------- | --------------- |
-| Account   | `acme_account` | `Account`       |
+| Resources     | Entity `_type`      | Entity `_class`           |
+| ------------- | ------------------- | ------------------------- |
+| Group         | `jumpcloud_group`   | `Group`                   |
+| Organizations | `jumpcloud_account` | `Account`, `Organization` |
+| User          | `jumpcloud_user`    | `User`                    |
 
 ### Relationships
 
@@ -56,9 +58,9 @@ The following relationships are created/mapped:
 
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
-| `acme_account`        | **HAS**               | `acme_user`           |
-| `acme_account`        | **HAS**               | `acme_group`          |
-| `acme_group`          | **HAS**               | `acme_user`           |
+| `jumpcloud_account`   | **HAS**               | `jumpcloud_group`     |
+| `jumpcloud_account`   | **HAS**               | `jumpcloud_user`      |
+| `jumpcloud_group`     | **HAS**               | `jumpcloud_user`      |
 
 <!--
 ********************************************************************************

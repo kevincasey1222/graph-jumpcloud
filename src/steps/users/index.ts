@@ -19,7 +19,6 @@ export async function fetchUsers({
   const client = new JumpCloudClient({
     logger,
     apiKey: instance.config.apiKey,
-    orgId: instance.config.orgId,
   });
 
   const orgEntity = await jobState.getData<Entity>(PRIORITY_ORG_CACHE_KEY);

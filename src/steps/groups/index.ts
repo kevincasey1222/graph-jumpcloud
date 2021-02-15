@@ -19,7 +19,6 @@ export async function fetchGroups({
   const client = new JumpCloudClient({
     logger,
     apiKey: instance.config.apiKey,
-    orgId: instance.config.orgId,
   });
 
   const orgEntity = await jobState.getData<Entity>(PRIORITY_ORG_CACHE_KEY);
@@ -45,7 +44,6 @@ export async function fetchGroupMembers({
   const client = new JumpCloudClient({
     logger,
     apiKey: instance.config.apiKey,
-    orgId: instance.config.orgId,
   });
 
   await jobState.iterateEntities(

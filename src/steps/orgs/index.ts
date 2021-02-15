@@ -17,7 +17,6 @@ export async function fetchOrgs({
   const client = new JumpCloudClient({
     logger,
     apiKey: instance.config.apiKey,
-    orgId: instance.config.orgId,
   });
 
   const response = await client.listOrgs();

@@ -10,5 +10,4 @@ if (process.env.LOAD_ENV) {
 
 export const integrationConfig: IntegrationConfig = {
   apiKey: process.env.API_KEY || 'test-api-key',
-  orgId: process.env.ORG_ID,
 };

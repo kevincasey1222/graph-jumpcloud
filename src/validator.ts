@@ -4,10 +4,10 @@ import {
   IntegrationValidationError,
 } from '@jupiterone/integration-sdk-core';
 import { JumpCloudClient } from './jumpcloud/client';
-import { BaseIntegrationConfig } from './config';
+import { IntegrationConfig } from './config';
 
 export async function validateInvocation(
-  context: IntegrationExecutionContext<BaseIntegrationConfig>,
+  context: IntegrationExecutionContext<IntegrationConfig>,
 ) {
   const { instance, logger } = context;
   const { config } = instance;
@@ -19,7 +19,6 @@ export async function validateInvocation(
   const client = new JumpCloudClient({
     logger,
     apiKey: config.apiKey,
-    orgId: config.orgId,
   });
 
   try {
