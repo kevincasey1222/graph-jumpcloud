@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createUserEntity should convert data 1`] = `
+Object {
+  "_class": Array [
+    "Account",
+    "Organization",
+  ],
+  "_key": "60259a2ad81e1a474d4e7c83",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "_id": "60259a2ad81e1a474d4e7c83",
+        "created": "2021-02-11T20:57:14.837Z",
+        "displayName": null,
+        "id": "60259a2ad81e1a474d4e7c83",
+        "logoUrl": null,
+      },
+    },
+  ],
+  "_type": "jumpcloud_account",
+  "createdOn": 1613077034837,
+  "displayName": "60259a2ad81e1a474d4e7c83",
+  "id": "60259a2ad81e1a474d4e7c83",
+  "logoUrl": undefined,
+  "name": "60259a2ad81e1a474d4e7c83",
+  "webLink": "https://console.jumpcloud.com",
+}
+`;
