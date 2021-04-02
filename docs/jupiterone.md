@@ -5,6 +5,25 @@ connects directly to JumpCloud APIs to obtain account metadata and analyze
 resource relationships. Customers authorize access by creating an API token in
 your target JumpCloud account and providing that credential to JupiterOne.
 
+## JumpCloud + JupiterOne Integration Benefits
+
+- Visualize JumpCloud users and groups in the JupiterOne graph.
+- Map JumpCloud users to employees in your JupiterOne account.
+- Monitor changes to JumpCloud users and groups using JupiterOne alerts.
+- Create an employee entity that is used to map users across your organization to an employee 
+via a matching email property.
+
+## How it Works
+
+- JupiterOne periodically fetches JumpCloud users and SSO assets to update the graph.
+- Write JupiterOne queries to review and monitor updates to the graph.
+- Configure alerts to take action when the JupiterOne graph changes.
+
+## Requirements
+
+- JupiterOne requires an API key used to authenticate with the JumpCloud account.
+- You must have permission in JupiterOne to install new integrations.
+
 ## Support
 
 If you need help with this integration, please contact
