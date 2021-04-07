@@ -1,10 +1,5 @@
 # Integration with JupiterOne
 
-JupiterOne provides a managed integration with JumpCloud. The integration
-connects directly to JumpCloud APIs to obtain account metadata and analyze
-resource relationships. Customers authorize access by creating an API token in
-your target JumpCloud account and providing that credential to JupiterOne.
-
 ## JumpCloud + JupiterOne Integration Benefits
 
 - Visualize JumpCloud users and groups in the JupiterOne graph.
@@ -31,10 +26,25 @@ If you need help with this integration, please contact
 
 ## Integration Walkthrough
 
-### Install
+### In JumpCloud
 
 Instructions on creating an API token within your JumpCloud account can be found
 [here][1].
+
+### In JupiterOne
+
+1. From the configuration **Gear Icon**, select **Integrations**.
+2. Scroll to the **JumpCloud** integration tile and click it.
+3. Click the **Add Configuration** button and configure the following settings:
+- Enter the **Account Name** by which you'd like to identify this JumpCloud
+   account in JupiterOne. Ingested entities will have this value stored in
+   `tag.AccountName` when **Tag with Account Name** is checked.
+- Enter a **Description** that will further assist your team when identifying
+   the integration instance.
+- Select a **Polling Interval** that you feel is sufficient for your monitoring
+   needs. You may leave this as `DISABLED` and manually execute the integration.
+- Enter the **API Key** used to authenticate to your JumpCloud account.
+4. Click **Create Configuration** once all values are provided.
 
 # How to Uninstall
 
@@ -43,7 +53,7 @@ Many of the following steps will be reusable; take care to be sure they remain
 accurate.
 
 1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **{{JumpCloud}}** integration tile and click it.
+2. Scroll to the **JumpCloud** integration tile and click it.
 3. Identify and click the **integration to delete**.
 4. Click the **trash can** icon.
 5. Click the **Remove** button to delete the integration.
