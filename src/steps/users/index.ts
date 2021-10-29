@@ -4,6 +4,7 @@ import {
   IntegrationStep,
   IntegrationStepExecutionContext,
   RelationshipClass,
+  IntegrationError,
 } from '@jupiterone/integration-sdk-core';
 import { JumpCloudClient } from '../../jumpcloud/client';
 import { IntegrationConfig } from '../../config';
@@ -22,6 +23,13 @@ export async function fetchUsers({
   });
 
   const orgEntity = await jobState.getData<Entity>(PRIORITY_ORG_CACHE_KEY);
+  if (!orgEntity) {
+    throw new IntegrationError({
+      message: 'Expected fetch-orgs to have set the Org Entity in the jobstate',
+      code: 'ORG_LIST_FAILED',
+      fatal: true,
+    });
+  }
 
   await client.iterateUsers(async (user) => {
     const userEntity = await jobState.addEntity(createUserEntity(user));

@@ -157,6 +157,7 @@ export class JumpCloudClient {
     );
   }
 
+  //interestingly, this only returns "bound" users for the group
   public async listUserGroupMembers(
     groupId: string,
     params?: QueryParams,
