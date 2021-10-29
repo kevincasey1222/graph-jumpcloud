@@ -6,8 +6,10 @@ export interface JumpCloudApplication extends JumpCloudObject {
   displayName?: string | null;
   displayLabel?: string | null;
   organization?: string | null;
+  description?: string | null;
   ssoUrl?: string | null;
   learnMore?: string | null;
+  created?: string | null;
 }
 
 export interface JumpCloudApplicationConfig {

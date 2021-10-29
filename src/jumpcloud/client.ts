@@ -83,6 +83,27 @@ export class JumpCloudClient {
     );
   }
 
+  async iterateApps(callback: (app: JumpCloudApplication) => Promise<void>) {
+    let numResultsLastPage = 0;
+
+    const limit = 100;
+    let totalIterated = 0;
+
+    do {
+      const response = await this.listApps({
+        limit: limit.toString(),
+        skip: totalIterated.toString(),
+      });
+
+      for (const app of response.results || []) {
+        await callback(app);
+      }
+
+      numResultsLastPage = response.results ? response.results.length : 0;
+      totalIterated += numResultsLastPage;
+    } while (numResultsLastPage > 0);
+  }
+
   async iterateUsers(callback: (user: JumpCloudUser) => Promise<void>) {
     let numResultsLastPage = 0;
 
@@ -104,7 +125,7 @@ export class JumpCloudClient {
     } while (numResultsLastPage > 0);
   }
 
-  async iterateGroups(callback: (user: JumpCloudGroup) => Promise<void>) {
+  async iterateGroups(callback: (group: JumpCloudGroup) => Promise<void>) {
     let numResultsLastPage = 0;
 
     const limit = 100;

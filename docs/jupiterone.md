@@ -79,21 +79,25 @@ https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources     | Entity `_type`      | Entity `_class`           |
-| ------------- | ------------------- | ------------------------- |
-| Group         | `jumpcloud_group`   | `Group`                   |
-| Organizations | `jumpcloud_account` | `Account`, `Organization` |
-| User          | `jumpcloud_user`    | `User`                    |
+| Resources     | Entity `_type`          | Entity `_class`           |
+| ------------- | ----------------------- | ------------------------- |
+| Application   | `jumpcloud_application` | `Application`             |
+| Group         | `jumpcloud_group`       | `Group`                   |
+| Organizations | `jumpcloud_account`     | `Account`, `Organization` |
+| User          | `jumpcloud_user`        | `User`                    |
 
 ### Relationships
 
 The following relationships are created:
 
-| Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
-| --------------------- | --------------------- | --------------------- |
-| `jumpcloud_account`   | **HAS**               | `jumpcloud_group`     |
-| `jumpcloud_account`   | **HAS**               | `jumpcloud_user`      |
-| `jumpcloud_group`     | **HAS**               | `jumpcloud_user`      |
+| Source Entity `_type` | Relationship `_class` | Target Entity `_type`   |
+| --------------------- | --------------------- | ----------------------- |
+| `jumpcloud_account`   | **HAS**               | `jumpcloud_application` |
+| `jumpcloud_account`   | **HAS**               | `jumpcloud_group`       |
+| `jumpcloud_account`   | **HAS**               | `jumpcloud_user`        |
+| `jumpcloud_group`     | **ASSIGNED**          | `jumpcloud_application` |
+| `jumpcloud_group`     | **HAS**               | `jumpcloud_user`        |
+| `jumpcloud_user`      | **ASSIGNED**          | `jumpcloud_application` |
 
 <!--
 ********************************************************************************
