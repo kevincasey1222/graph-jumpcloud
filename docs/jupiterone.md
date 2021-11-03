@@ -2,7 +2,7 @@
 
 ## JumpCloud + JupiterOne Integration Benefits
 
-- Visualize JumpCloud users and groups in the JupiterOne graph.
+- Visualize JumpCloud users, groups, and applications in the JupiterOne graph.
 - Map JumpCloud users to employees in your JupiterOne account.
 - Monitor changes to JumpCloud users and groups using JupiterOne alerts.
 - Create an employee entity that is used to map users across your organization

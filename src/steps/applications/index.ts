@@ -62,32 +62,50 @@ export async function fetchApplicationMembers({
     },
     async (appEntity) => {
       const appId = appEntity.id as string;
-
-      /*
-      await client.iterateGroupMembers(groupId, async (member) => {
-        const memberUserId = member.to?.id;
-
-        if (!memberUserId) {
+      await client.iterateAppBoundUsers(appId, async (user) => {
+        console.log(`User: ${JSON.stringify(user, null, 2)}`);
+        const userId = user.id;
+        if (!userId) {
           return;
         }
-
-        const userEntity = await jobState.findEntity(memberUserId);
+        const userEntity = await jobState.findEntity(userId);
 
         if (!userEntity) {
           // It's possible that this user was created in between the time that
-          // we collected all users and now. We should just ignore this one and
-          // carry on!
+          // we collected all users and now. Just ignore this one and carry on!
           return;
         }
 
         await jobState.addRelationship(
           createDirectRelationship({
-            _class: RelationshipClass.HAS,
-            from: appEntity,
-            to: userEntity,
+            _class: RelationshipClass.ASSIGNED,
+            from: userEntity,
+            to: appEntity,
           }),
         );
-      }); */
+      });
+
+      await client.iterateAppBoundGroups(appId, async (group) => {
+        console.log(`Group: ${JSON.stringify(group, null, 2)}`);
+        const groupId = group.id;
+        if (!groupId) {
+          return;
+        }
+        const groupEntity = await jobState.findEntity(groupId);
+
+        if (!groupEntity) {
+          // It's possible that this group was created in between the time that
+          // we collected all groups and now. Just ignore this one and carry on!
+          return;
+        }
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.ASSIGNED,
+            from: groupEntity,
+            to: appEntity,
+          }),
+        );
+      });
     },
   );
 }
@@ -109,7 +127,7 @@ export const appSteps: IntegrationStep<IntegrationConfig>[] = [
       ApplicationRelationships.USER_ASSIGNED_APPLICATION,
       ApplicationRelationships.GROUP_ASSIGNED_APPLICATION,
     ],
-    dependsOn: ['fetch-applications'],
+    dependsOn: ['fetch-applications', 'fetch-users', 'fetch-groups'],
     executionHandler: fetchApplicationMembers,
   },
 ];

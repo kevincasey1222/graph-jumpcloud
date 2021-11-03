@@ -59,25 +59,9 @@ export class JumpCloudClient {
     };
   }
 
-  public async listApps(params?: QueryParams): Promise<ListAppsResponse> {
-    return this.makeRequest<ListOrgsResponse>(
-      `${this.BASE_API_URL}/applications`,
-      { totalCount: 0, results: [] },
-      params,
-    );
-  }
-
   public async listOrgs(params?: QueryParams): Promise<ListOrgsResponse> {
     return this.makeRequest<ListOrgsResponse>(
       `${this.BASE_API_URL}/organizations`,
-      { totalCount: 0, results: [] },
-      params,
-    );
-  }
-
-  public async listUsers(params?: QueryParams): Promise<ListUsersResponse> {
-    return this.makeRequest<ListUsersResponse>(
-      `${this.BASE_API_URL}/systemusers`,
       { totalCount: 0, results: [] },
       params,
     );
@@ -104,6 +88,84 @@ export class JumpCloudClient {
     } while (numResultsLastPage > 0);
   }
 
+  public async listApps(params?: QueryParams): Promise<ListAppsResponse> {
+    return this.makeRequest<ListOrgsResponse>(
+      `${this.BASE_API_URL}/applications`,
+      { totalCount: 0, results: [] },
+      params,
+    );
+  }
+
+  async iterateAppBoundUsers(
+    appId: string,
+    callback: (user: JumpCloudUser) => Promise<void>,
+  ) {
+    let numResultsLastPage = 0;
+
+    const limit = 100;
+    let totalIterated = 0;
+
+    do {
+      const users = await this.listAppBoundUsers(appId, {
+        limit: limit.toString(),
+        skip: totalIterated.toString(),
+      });
+
+      for (const user of users) {
+        await callback(user);
+      }
+
+      totalIterated += users.length;
+      numResultsLastPage = users.length;
+    } while (numResultsLastPage > 0);
+  }
+
+  public async listAppBoundUsers(
+    appId: string,
+    params?: QueryParams,
+  ): Promise<JumpCloudUser[]> {
+    return this.makeRequest<JumpCloudUser[]>(
+      `${this.BASE_API_URL}/v2/applications/${appId}/users`,
+      [],
+      params,
+    );
+  }
+
+  async iterateAppBoundGroups(
+    appId: string,
+    callback: (group: JumpCloudGroup) => Promise<void>,
+  ) {
+    let numResultsLastPage = 0;
+
+    const limit = 100;
+    let totalIterated = 0;
+
+    do {
+      const groups = await this.listAppBoundGroups(appId, {
+        limit: limit.toString(),
+        skip: totalIterated.toString(),
+      });
+
+      for (const group of groups) {
+        await callback(group);
+      }
+
+      totalIterated += groups.length;
+      numResultsLastPage = groups.length;
+    } while (numResultsLastPage > 0);
+  }
+
+  public async listAppBoundGroups(
+    appId: string,
+    params?: QueryParams,
+  ): Promise<JumpCloudGroup[]> {
+    return this.makeRequest<JumpCloudGroup[]>(
+      `${this.BASE_API_URL}/v2/applications/${appId}/usergroups`,
+      [],
+      params,
+    );
+  }
+
   async iterateUsers(callback: (user: JumpCloudUser) => Promise<void>) {
     let numResultsLastPage = 0;
 
@@ -123,6 +185,14 @@ export class JumpCloudClient {
       numResultsLastPage = response.results ? response.results.length : 0;
       totalUsersIterated += numResultsLastPage;
     } while (numResultsLastPage > 0);
+  }
+
+  public async listUsers(params?: QueryParams): Promise<ListUsersResponse> {
+    return this.makeRequest<ListUsersResponse>(
+      `${this.BASE_API_URL}/systemusers`,
+      { totalCount: 0, results: [] },
+      params,
+    );
   }
 
   async iterateGroups(callback: (group: JumpCloudGroup) => Promise<void>) {
