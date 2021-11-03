@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createUserEntity should convert data 1`] = `
+Object {
+  "_class": Array [
+    "Application",
+  ],
+  "_key": "617c3664e6f8ae27f7e1201e",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "_id": "617c3664e6f8ae27f7e1201e",
+        "active": true,
+        "beta": false,
+        "created": "2021-10-29T17:59:00.448Z",
+        "description": "",
+        "displayLabel": "AWS SSO",
+        "displayName": "AWS SSO",
+        "id": "617c3664e6f8ae27f7e1201e",
+        "learnMore": "https://support.jumpcloud.com/support/s/article/Single-Sign-On-SSO-With-AWS-SSO",
+        "name": "aws-sso",
+        "organization": "60259a2ad81e1a474d4e7c83",
+        "sso": Object {
+          "beta": false,
+          "idpCertExpirationAt": "2026-10-29T17:58:59.000Z",
+          "jit": false,
+          "type": "saml",
+        },
+        "ssoUrl": "https://sso.jumpcloud.com/saml2/aws-sso",
+      },
+    },
+  ],
+  "_type": "jumpcloud_application",
+  "active": true,
+  "createdOn": 1635530340448,
+  "description": "",
+  "displayName": "AWS SSO",
+  "id": "617c3664e6f8ae27f7e1201e",
+  "name": "aws-sso",
+  "ssoUrl": "https://sso.jumpcloud.com/saml2/aws-sso",
+  "webLink": "https://console.jumpcloud.com/#/sso/617c3664e6f8ae27f7e1201e/details",
+}
+`;

@@ -8,6 +8,22 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added support for ingesting the following **new** entity:
+
+| Resources   | Entity `_type`          | Entity `_class` |
+| ----------- | ----------------------- | --------------- |
+| Application | `jumpcloud_application` | `Application`   |
+
+- Added support for ingesting the following **new** relationships:
+
+| Source Entity `_type` | Relationship `_class` | Target Entity `_type`   |
+| --------------------- | --------------------- | ----------------------- |
+| `jumpcloud_account`   | **HAS**               | `jumpcloud_application` |
+| `jumpcloud_user`      | **ASSIGNED**          | `jumpcloud_application` |
+| `jumpcloud_group`     | **ASSIGNED**          | `jumpcloud_application` |
+
 ## 2.0.0 - 2021-02-15
 
 ### Added

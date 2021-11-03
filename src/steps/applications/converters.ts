@@ -8,6 +8,7 @@ import { ApplicationEntities } from './constants';
 
 export function createApplicationEntity(data: JumpCloudApplication) {
   const appId = data.id || (data._id as string);
+  delete data.config; //this has SAML certs in it
 
   return createIntegrationEntity({
     entityData: {

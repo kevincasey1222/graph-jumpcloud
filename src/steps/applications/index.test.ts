@@ -1,22 +1,23 @@
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
-import { fetchGroups } from '.';
+import { fetchApplicationMembers, fetchApplications } from '.';
 import { withRecording } from '../../../test/recording';
 import { integrationConfig } from '../../../test/config';
 import { IntegrationConfig } from '../../config';
-import { GroupEntities, GroupRelationships } from './constants';
+import { ApplicationEntities, ApplicationRelationships } from './constants';
 import { fetchOrgs } from '../orgs';
 import { RelationshipClass } from '@jupiterone/integration-sdk-core';
 import { fetchUsers } from '../users';
+import { fetchGroups } from '../groups';
 
-describe('#fetchGroups', () => {
+describe('#fetchApplications', () => {
   test('should collect data', async () => {
-    await withRecording('fetchGroups', __dirname, async () => {
+    await withRecording('fetchApplications', __dirname, async () => {
       const context = createMockStepExecutionContext<IntegrationConfig>({
         instanceConfig: integrationConfig,
       });
 
       await fetchOrgs(context);
-      await fetchGroups(context);
+      await fetchApplications(context);
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
@@ -29,14 +30,14 @@ describe('#fetchGroups', () => {
 
       expect(
         context.jobState.collectedEntities.filter(
-          (e) => e._type === GroupEntities.GROUP._type,
+          (e) => e._type === ApplicationEntities.APPLICATION._type,
         ),
       ).toMatchGraphObjectSchema({
-        _class: ['Group'],
+        _class: ['Application'],
         schema: {
-          additionalProperties: false,
+          additionalProperties: true,
           properties: {
-            _type: { const: 'jumpcloud_group' },
+            _type: { const: 'jumpcloud_application' },
             _rawData: {
               type: 'array',
               items: { type: 'object' },
@@ -48,13 +49,13 @@ describe('#fetchGroups', () => {
 
       expect(
         context.jobState.collectedRelationships.filter(
-          (r) => r._type === GroupRelationships.ORG_HAS_GROUP._type,
+          (r) => r._type === ApplicationRelationships.ORG_HAS_APPLICATION._type,
         ),
       ).toMatchDirectRelationshipSchema({
         schema: {
           properties: {
             _class: { const: RelationshipClass.HAS },
-            _type: { const: 'jumpcloud_account_has_group' },
+            _type: { const: 'jumpcloud_account_has_application' },
           },
         },
       });
@@ -62,9 +63,9 @@ describe('#fetchGroups', () => {
   });
 });
 
-describe('#fetchGroupMembers', () => {
+describe('#fetchAppBoundUsersAndGroups', () => {
   test('should collect data', async () => {
-    await withRecording('fetchGroups', __dirname, async () => {
+    await withRecording('fetchApplications', __dirname, async () => {
       const context = createMockStepExecutionContext<IntegrationConfig>({
         instanceConfig: integrationConfig,
       });
@@ -72,6 +73,8 @@ describe('#fetchGroupMembers', () => {
       await fetchOrgs(context);
       await fetchUsers(context);
       await fetchGroups(context);
+      await fetchApplications(context);
+      await fetchApplicationMembers(context);
 
       expect({
         numCollectedEntities: context.jobState.collectedEntities.length,
@@ -84,13 +87,30 @@ describe('#fetchGroupMembers', () => {
 
       expect(
         context.jobState.collectedRelationships.filter(
-          (r) => r._type === GroupRelationships.GROUP_HAS_USER._type,
+          (r) =>
+            r._type ===
+            ApplicationRelationships.USER_ASSIGNED_APPLICATION._type,
         ),
       ).toMatchDirectRelationshipSchema({
         schema: {
           properties: {
-            _class: { const: RelationshipClass.HAS },
-            _type: { const: 'jumpcloud_group_has_user' },
+            _class: { const: RelationshipClass.ASSIGNED },
+            _type: { const: 'jumpcloud_user_assigned_application' },
+          },
+        },
+      });
+
+      expect(
+        context.jobState.collectedRelationships.filter(
+          (r) =>
+            r._type ===
+            ApplicationRelationships.GROUP_ASSIGNED_APPLICATION._type,
+        ),
+      ).toMatchDirectRelationshipSchema({
+        schema: {
+          properties: {
+            _class: { const: RelationshipClass.ASSIGNED },
+            _type: { const: 'jumpcloud_group_assigned_application' },
           },
         },
       });

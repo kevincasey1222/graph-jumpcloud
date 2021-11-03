@@ -3,6 +3,7 @@ import { JumpCloudObject } from '.';
 export interface JumpCloudApplication extends JumpCloudObject {
   active?: boolean | null;
   name?: string | null;
+  beta?: boolean | null;
   displayName?: string | null;
   displayLabel?: string | null;
   organization?: string | null;
@@ -10,6 +11,13 @@ export interface JumpCloudApplication extends JumpCloudObject {
   ssoUrl?: string | null;
   learnMore?: string | null;
   created?: string | null;
+  config?: object | null;
+  sso?: {
+    jit: boolean | null;
+    beta: boolean | null;
+    type: string | null;
+    idpCertExpirationAt: string | null;
+  };
 }
 
 export interface JumpCloudApplicationConfig {

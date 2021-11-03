@@ -63,7 +63,6 @@ export async function fetchApplicationMembers({
     async (appEntity) => {
       const appId = appEntity.id as string;
       await client.iterateAppBoundUsers(appId, async (user) => {
-        console.log(`User: ${JSON.stringify(user, null, 2)}`);
         const userId = user.id;
         if (!userId) {
           return;
@@ -86,7 +85,6 @@ export async function fetchApplicationMembers({
       });
 
       await client.iterateAppBoundGroups(appId, async (group) => {
-        console.log(`Group: ${JSON.stringify(group, null, 2)}`);
         const groupId = group.id;
         if (!groupId) {
           return;
