@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 2.1.0 - 2021-11-10
+
 ### Added
 
 - Added support for ingesting the following **new** entity:
