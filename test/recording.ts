@@ -18,6 +18,16 @@ export async function withRecording(
     redactedRequestHeaders: ['x-api-key'],
     mutateEntry(entry) {
       mutations.unzipGzippedRecordingEntry(entry);
+      const responseContent = JSON.parse(entry.response.content.text);
+      if (responseContent.results && Array.isArray(responseContent.results)) {
+        for (const result of responseContent.results) {
+          if (result.config) {
+            //has SAML certs in it
+            result.config = '[REDACTED]';
+          }
+        }
+        entry.response.content.text = JSON.stringify(responseContent);
+      }
     },
     options: {
       recordFailedRequests: false,

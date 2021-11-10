@@ -1,4 +1,5 @@
 import {
+  JumpCloudApplication,
   JumpCloudGroup,
   JumpCloudOrg,
   JumpCloudUser,
@@ -73,5 +74,29 @@ export function createMockOrg(): JumpCloudOrg {
     displayName: null,
     logoUrl: null,
     created: '2021-02-11T20:57:14.837Z',
+  };
+}
+
+export function createMockApplication(): JumpCloudApplication {
+  return {
+    _id: '617c3664e6f8ae27f7e1201e',
+    id: '617c3664e6f8ae27f7e1201e',
+    active: true,
+    name: 'aws-sso',
+    displayName: 'AWS SSO',
+    displayLabel: 'AWS SSO',
+    beta: false,
+    organization: '60259a2ad81e1a474d4e7c83',
+    ssoUrl: 'https://sso.jumpcloud.com/saml2/aws-sso',
+    learnMore:
+      'https://support.jumpcloud.com/support/s/article/Single-Sign-On-SSO-With-AWS-SSO',
+    description: '',
+    created: '2021-10-29T17:59:00.448Z',
+    sso: {
+      jit: false,
+      beta: false,
+      type: 'saml',
+      idpCertExpirationAt: '2026-10-29T17:58:59.000Z',
+    },
   };
 }
